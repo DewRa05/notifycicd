@@ -113,4 +113,4 @@ jobs:
 
           MESSAGE="Job Laravel CI Status: $STATUS"
 
-          curl -s -X POST https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage -d chat_id=${TELEGRAM_CHAT_ID} -d text="$MESSAGE"
+          curl -s -X POST https://api.telegram.org/lahhhh_yaa_Bot${TELEGRAM_TOKEN}/sendMessage -d chat_id=${TELEGRAM_CHAT_ID} -d text="$MESSAGE"
