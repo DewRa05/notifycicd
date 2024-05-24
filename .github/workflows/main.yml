@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout CODE
-        uses: actions/checkout@
+        uses: actions/checkout@V2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -23,7 +23,7 @@ jobs:
           php-version: '8.2'
 
       - name: Install dependencies
-        run: composer install --no-ansi --no-interaction --no-progress --optimize-autoloader
+        run: composer installI --no-ansi --no-interaction --no-progress --optimize-autoloader
 
       - name: Copy file example env
         run: cp .env.example .env
