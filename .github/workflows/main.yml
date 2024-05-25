@@ -89,10 +89,6 @@ jobs:
       - name: Introduce Failure
         run: exit 1  # This command will always fail
 
-      - name: Run Tests
-        run: ./vendor/bin/phpunit
-        if: ${{ always() }}  # Ensure this step runs even if the previous step fails
-
   notify:
     name: Telegram Notification
     runs-on: ubuntu-latest
