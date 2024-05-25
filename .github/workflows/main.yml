@@ -14,27 +14,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout CODE
-        uses: actions/checkout@V2
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
 
-      - name: Install dependencies
+      - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-progress --optimize-autoloader
 
-      - name: Copy file example env
-        run: cp .env.example .env
+      - name: Setup Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
 
-      - name: Generate key
-        run: php artisan key:generate
-
-      - name: Create File Database
+      - name: Create SQLite Database
         run: touch database/database.sqlite
 
-      - name: Run Migration Database
+      - name: Run Database Migrations and Seeders
         run: php artisan migrate:fresh --seed
 
       - name: Setup Node.js
@@ -42,10 +41,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Node.js dependencies
+      - name: Install Node.js Dependencies
         run: npm install
 
-      - name: Build Node.JS
+      - name: Build Node.js Assets
         run: npm run build
 
   laravel_test:
@@ -54,7 +53,7 @@ jobs:
     needs: laravel_build
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v2
 
       - name: Setup PHP
@@ -62,19 +61,18 @@ jobs:
         with:
           php-version: '8.2'
 
-      - name: Install dependencies
+      - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-progress --optimize-autoloader
 
-      - name: Copy file example env
-        run: cp .env.example .env
+      - name: Setup Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
 
-      - name: Generate key
-        run: php artisan key:generate
-
-      - name: Create File Database
+      - name: Create SQLite Database
         run: touch database/database.sqlite
 
-      - name: Run Migration Database
+      - name: Run Database Migrations and Seeders
         run: php artisan migrate:fresh --seed
 
       - name: Setup Node.js
@@ -82,13 +80,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Node.js dependencies
+      - name: Install Node.js Dependencies
         run: npm install
 
-      - name: Build Node.JS
+      - name: Build Node.js Assets
         run: npm run build
 
-      - name: Run tests
+      - name: Run Tests
         run: ./vendor/bin/phpunit
 
   notify:
